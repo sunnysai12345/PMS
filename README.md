@@ -93,4 +93,13 @@ If there is any offer letter for the candidate it should be displayed.
 
 
 
+SRS DOCUMENT
+=============
+
+[PMS SRS](https://docs.google.com/document/d/1zLaMmGvJqCOeXFiH0lmUgcSC-crs6i4lJMiiJbSVYGA/edit?usp=sharing)
+
+SDD DOCUMENT
+=============
+
+[PMS SDD](https://docs.google.com/document/d/1jCRmxLtk_Z20p-dVprrhU1GQaAkMdQ_QXiXIoqRKaoo/edit?usp=sharing)
 
