@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+    <title>{% block title %}PMS{% endblock %}</title>
+    <meta name="description" content="A web portal for hiring process">
+    <meta name="author" content="IIT Kharagpur">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Average|Courgette' rel='stylesheet' type='text/css'>
+    <!--Load the path to static files -->
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}">
+</head>
+<body>
+   <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!--header -->
+            <div class="navbar-header">
+                <!-- change url here -->
+                <a class="navbar-brand" href="{% url 'home:home' %}"><p id="title">Placement Management System</p></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                    <span class="icon-bar"> </span>
+                    <span class="icon-bar"> </span>
+                    <span class="icon-bar"> </span>
+                </button>
+            </div>
+            <!-- items -->
+            <div class="collapse navbar-collapse mymenu" id="topNavBar">
+
+                <ul class="nav navbar-nav navbar-right" >
+                         <li class="active">
+                             <a href="/student/login/">
+                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Students
+                             </a>
+                         </li>
+                        <li class="">
+                             <a href="#">
+                                 <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp; Companies
+                             </a>
+                         </li>
+                        <li class="">
+                             <a href="#" >
+                                 <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp; Admin
+                             </a>
+                         </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% block body%}
+
+{% endblock %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
