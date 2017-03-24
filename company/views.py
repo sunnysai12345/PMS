@@ -39,11 +39,7 @@ def view_home(request):
             try:
                 r=Register.objects.filter(c_name__exact=user)
                 if r.filter(c_password__exact=passw):
-<<<<<<< HEAD
-                    if r.values()[0]['c_verified'] :
-=======
                     if r.values[0]['c_verified'] :
->>>>>>> a14aa75e54bf9fdb752943faf5e5bbb9edd96929
                         return render(request,'company/login_success.html')
                     else:
                         return render(request,'company/verifymail.html')
