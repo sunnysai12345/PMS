@@ -6,9 +6,46 @@
 {% block body%}
 <div id="backgroundImage">
 
+<<<<<<< HEAD
+
+    <div class="container-fluid">
+        <div class="row modal-body">
+            <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="heading col-sm-offset-2"><strong>Student Login</strong></h2>
+                    <br>
+                    <form class="form-horizontal " action="" method="post" enctype="multipart/form-data">
+                        <!--this is for security pupose against click jacking -->
+                        {% csrf_token %}
+                        {% include 'home/form_template.html' %}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-10">
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+                </div>
+
+            <div class="col-md-6">
+                <a href="{% url 'student:student_register' %}"></a>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+=======
     <div class="main">
          <a href="{% url 'student:student_register' %}"></a>
     </div>
 
+>>>>>>> a14aa75e54bf9fdb752943faf5e5bbb9edd96929
 </div>
 {% endblock %}
