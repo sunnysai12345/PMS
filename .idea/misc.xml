@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7.12 (/usr/bin/python2.7)" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.5.2 (D:\Anaconda3\python.exe)" project-jdk-type="Python SDK" />
+>>>>>>> a14aa75e54bf9fdb752943faf5e5bbb9edd96929
   <component name="PythonCompatibilityInspectionAdvertiser">
     <option name="version" value="1" />
   </component>

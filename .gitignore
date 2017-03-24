@@ -1,2 +1,4 @@
 .idea
-db3.sqlite
+db.sqlite3
+documentation
+*.pyc
