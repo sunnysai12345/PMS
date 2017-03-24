@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic import TemplateView
 #import company
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',include('company.urls'))
+    url(r'^company/',include('company.urls')),
+    url(r'^student/',include('student.urls')),
+    url(r'^$',include('home.urls')),
 ]
+
+#url(r'^$',TemplateView.as_view(template_name='pms_index.html')),

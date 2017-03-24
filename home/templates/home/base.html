@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
       <meta charset="utf-8">
-    <title>Placement Management System</title>
+    <title>{% block title %}PMS{% endblock %}</title>
     <meta name="description" content="A web portal for hiring process">
     <meta name="author" content="IIT Kharagpur">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -17,6 +17,7 @@
         <div class="container-fluid">
             <!--header -->
             <div class="navbar-header">
+                <!-- change url here -->
                 <a class="navbar-brand" href="{% url 'home:home' %}"><p id="title">Placement Management System</p></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
                     <span class="icon-bar"> </span>
@@ -29,7 +30,7 @@
 
                 <ul class="nav navbar-nav navbar-right" >
                          <li class="active">
-                             <a href="#">
+                             <a href="/student/login/">
                                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Students
                              </a>
                          </li>
