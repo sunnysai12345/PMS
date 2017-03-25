@@ -39,8 +39,9 @@ def view_home(request):
             try:
                 r=Register.objects.filter(c_name__exact=user)
                 if r.filter(c_password__exact=passw):
-                    if r.values[0]['c_verified'] :
-                        return render(request,'company/login_success.html')
+                    if r.values()[0]['c_verified'] :
+                        form = EditForm()
+                        return render(request,'company/companyform.html',{'form':form})
                     else:
                         return render(request,'company/verifymail.html')
                 else:
