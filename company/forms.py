@@ -13,9 +13,10 @@ class Loginform(AuthenticationForm):
     username = forms.CharField(label="Username", max_length=30,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
     password = forms.CharField(label="Password", max_length=30,
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'password'}))
+                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password'}))
     def clean(self):
         pass
+
 class EditForm(forms.ModelForm):
     class Meta :
         model = Edit_Details

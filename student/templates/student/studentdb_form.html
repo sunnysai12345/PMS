@@ -17,7 +17,7 @@
                     <form class="form-horizontal " action="" method="post" enctype="multipart/form-data">
                         <!--this is for security pupose against click jacking -->
                         {% csrf_token %}
-                        {% include 'home/form_template.html' %}
+                        {{ form.as_ul }}
 
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-10">

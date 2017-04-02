@@ -7,4 +7,4 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 def home(request):
-    return render(request,'home/pms_index.html')
+    return render(request,'student/student_login.html')

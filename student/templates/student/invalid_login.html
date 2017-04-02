@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Redirecting...{% endblock %}
+{% block meta %}
+<meta http-equiv="refresh" content="2; url=/student/student_login/" />
+{%endblock %}
+{% block body%}
+
+<div id="backgroundImage">
+
+
+    <div class="container-fluid">
+        <div class="row modal-body">
+            <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="" id="cursive"><strong>Invalid login</strong></h2>
+                    <br>
+                    <p>Redirecting to <a href ="/student/student_login">Home Page </a></p>
+                </div>
+            </div>
+            </div>
+
+          </div>
+    </div>
+
+</div>
+{% endblock %}
+

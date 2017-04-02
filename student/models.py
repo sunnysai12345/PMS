@@ -6,18 +6,42 @@ from django.core.urlresolvers import reverse
 import datetime
 # Create your models here.
 class StudentDB(models.Model):
-    s_name = models.CharField(max_length=250)
-    dob = models.DateField(max_length=12)
-    #branch = models.CharField(max_length=50) #search for creating drop down menu
-    #course = # search for drop down MTech Btech
-    emailid = models.CharField(max_length=250)
-    contactno = models.CharField (max_length=20)
-    address = models.CharField (max_length=500)
-    profile_pic = models.FileField();
+    BRANCH=(
+        ('BTECH','bachelors'),
+        ('MTECH','masters'),
+        ('PHD','philospher'),
+    )
+    COURSE=(
+        ('CS','computer_science'),
+        ('ME','mechanical'),
+        ('EE','electrical'),
+    )
+    s_username = models.CharField(max_length=250, default='')
+    s_name = models.CharField(max_length=250,blank=True)
+    s_password = models.CharField(max_length=250, blank=True)
+    s_confirm_password=models.CharField(max_length=250, blank=True)
+    dob = models.DateField()
+    emailid = models.EmailField(blank=True)
+    branch = models.CharField(max_length=10,choices=BRANCH, default='CS') #search for creating drop down menu
+    course =  models.CharField(max_length=5,choices=COURSE, default='BTECH')#search for drop down MTech Btech
+    s_verified = models.BooleanField(default=False, blank=True)
+    s_verification = models.IntegerField(default=0, blank=True)
+    contactno = models.CharField (max_length=20,blank=True)
+    #address = models.CharField (max_length=500)
+    #profile_pic = models.FileField();
 
     #def get_absolute_url(self):
      #   return reverse('student:student',)
 
+class Edit_Details(models.Model):
+    s_perm  = models.ForeignKey(StudentDB, on_delete=models.CASCADE)
+    s_name = models.CharField(max_length=250, blank=True, null=True)
+    emailid = models.EmailField(blank=True)
+    def __str__(self):
+        return self.s_name
+
+'''
 class Course(models.Model):
     course_name=models.CharField(max_length=100)
     shorthand=models.CharField(max_length=5)
+'''

@@ -5,6 +5,11 @@ p {
   color: black;
 }
 
+#cursive {
+  font: 400 45px/0.5  'Courgette', Helvetica, sans-serif;
+  color: red;
+}
+
 #title:hover {
     color: gray;
 }

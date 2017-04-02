@@ -3,6 +3,8 @@
 <head>
       <meta charset="utf-8">
     <title>{% block title %}PMS{% endblock %}</title>
+    {% block meta %}
+    {% endblock %}
     <meta name="description" content="A web portal for hiring process">
     <meta name="author" content="IIT Kharagpur">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -29,12 +31,12 @@
             <div class="collapse navbar-collapse mymenu" id="topNavBar">
 
                 <ul class="nav navbar-nav navbar-right" >
-                         <li class="active">
-                             <a href="/student/login/">
+                         <li class="{% block actives %} {% endblock %}">
+                             <a href="{% url 'student:student_off' %}">
                                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Students
                              </a>
                          </li>
-                        <li class="">
+                        <li class="{% block activec %} {% endblock %}">
                              <a href="{% url 'company:login_page' %}">
                                  <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp; Companies
                              </a>
