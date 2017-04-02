@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import Postform
-from .forms import Loginform,EditForm
+from .forms import Loginform,EditForm,JobReqs
 from .models import Register
 from django.contrib.auth.decorators import login_required
 import random
@@ -91,4 +91,6 @@ def verify(request):
             pass
         form = EditForm()
         return render(request, 'company/verificationsuccess.html', {'form': form})
-
+def Jobreqs(request):
+    form = JobReqs()
+    return render(request, 'company/jobreqs.html', {'form': form})
