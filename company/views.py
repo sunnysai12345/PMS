@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from .forms import Postform
 from .forms import Loginform,EditForm,JobReqs
 from .models import Register
@@ -28,53 +28,62 @@ def post_list(request):
         form=Postform()
     return render(request, 'company/tempform.html', {'form':form},status=status)
 def view_home(request):
-    if request.method == 'POST':
-        form=Loginform(data=request.POST)
-        print (form.errors)
-        print (form.non_field_errors)
-        if form.is_valid():
-            print("Validation Success")
-            user=request.POST['username']
-            passw=request.POST['password']
-            try:
-                r=Register.objects.filter(c_name__exact=user)
-                if r.filter(c_password__exact=passw):
-                    if r.values()[0]['c_verified'] :
-                        form = EditForm()
-                        return render(request,'company/companyform.html',{'form':form})
-                    else:
-                        return render(request,'company/verifymail.html')
-                else:
-                    return render(request, 'company/login_failure.html')
-            except:
-                return render(request,'company/login_failure.html')
-            #instance.save()
-        else:
-            print("Validation Failed")
-            #form = Loginform()
-            return render(request, 'company/login.html')
+    if request.session.has_key('username'):
+        user = request.session['username']
+        return render(request, 'company/loggedin.html', {'username': user})
     else:
-        form=Loginform()
-        return render(request,'company/login.html',{'form':form})
+        if request.method == 'POST':
+            form=Loginform(data=request.POST)
+            print (form.errors)
+            print (form.non_field_errors)
+            if form.is_valid():
+                print("Validation Success")
+                user=request.POST['username']
+                passw=request.POST['password']
+                try:
+                    r=Register.objects.filter(c_name__exact=user)
+                    if r.filter(c_password__exact=passw):
+                        if r.values()[0]['c_verified'] :
+                            request.session['username'] = user
+                            request.session.set_expiry(300)
+                            #form = EditForm()
+                            return render(request,'company/loggedin.html',{'username':user})
+                        else:
+                            return render(request,'company/verifymail.html')
+                    else:
+                        return render(request, 'company/login_failure.html')
+                except:
+                    return render(request,'company/login_failure.html')
+                #instance.save()
+            else:
+                print("Validation Failed")
+                #form = Loginform()
+                return render(request, 'company/login.html')
+        else:
+            form=Loginform()
+            return render(request,'company/login.html',{'form':form})
 @login_required()
 def view_edit(request):
-    if request.method == 'POST':
-        form=EditForm(request.POST,request.FILES)
-        print (form.errors)
-        print (form.non_field_errors)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            # if instance.c_name!=instance.c_confirm_password:
-            instance.save()
-            #instance.save()
-            return render(request,'company/companyform.html',{'form':form})
+    if request.session.has_key('username'):
+        if request.method == 'POST':
+            form=EditForm(request.POST,request.FILES)
+            print (form.errors)
+            print (form.non_field_errors)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                # if instance.c_name!=instance.c_confirm_password:
+                instance.save()
+                #instance.save()
+                return render(request,'company/companyform.html',{'form':form})
+            else:
+                print("Validation Failed")
+                #form = Loginform()
+                return render(request, 'company/companyform.html',{'form':form})
         else:
-            print("Validation Failed")
-            #form = Loginform()
-            return render(request, 'company/companyform.html',{'form':form})
+            form = EditForm()
+            return render(request,'company/companyform.html',{'form':form})
     else:
-        form = EditForm()
-        return render(request,'company/companyform.html',{'form':form})
+        return HttpResponse("Unauthorised Access")
 def verify(request):
     if request.method == 'GET':
         val=int(request.GET['value'])
@@ -94,3 +103,10 @@ def verify(request):
 def Jobreqs(request):
     form = JobReqs()
     return render(request, 'company/jobreqs.html', {'form': form})
+
+def profile(request,username):
+    if request.session.has_key('username'):
+        user=request.session['username']
+        return render(request,'company/company_profile.html',{'username':user})
+    else:
+        return HttpResponse('Unauthorised Access')
