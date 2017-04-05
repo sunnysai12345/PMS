@@ -1,5 +1,5 @@
 from django import forms
-from .models import Register,Edit_Details,Job_desc
+from .models import Register,Edit_Details
 from django.contrib.auth.forms import AuthenticationForm
 class Postform(forms.ModelForm):
     class Meta:
@@ -21,8 +21,3 @@ class EditForm(forms.ModelForm):
     class Meta :
         model = Edit_Details
         fields=['c_name','c_email','c_branches_allowed','c_ctc_offered','c_requirements','c_selected_students']
-
-class JobReqs(forms.ModelForm):
-    class Meta:
-        model = Job_desc
-        fields=['c_branch','c_ctc_offered','c_requirements']
