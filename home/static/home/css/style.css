@@ -5,10 +5,6 @@ color: black;
 }
 #backgroundImage{z-index: 1;}
 
-p {
-  font: 400 45px/0.5  'Courgette', Helvetica, sans-serif;
-  color: black;
-}
 
 #cursive {
   font: 400 45px/0.5  'Courgette', Helvetica, sans-serif;
@@ -53,3 +49,7 @@ font: 400 25px/0.5  'Courgette', Helvetica, sans-serif;
 
 }
 
+.para {
+  font: 400 45px/0.5  'Courgette', Helvetica, sans-serif;
+  color: black;
+}
