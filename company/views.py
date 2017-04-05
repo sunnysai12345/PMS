@@ -107,6 +107,8 @@ def Jobreqs(request):
 def profile(request,username):
     if request.session.has_key('username'):
         user=request.session['username']
-        return render(request,'company/company_profile.html',{'username':user})
+        tmp=Register.objects.filter(c_name=user)
+        form=tmp.values()[0]
+        return render(request,'company/company_profile.html',{'username':user,'form': form})
     else:
         return HttpResponse('Unauthorised Access')
