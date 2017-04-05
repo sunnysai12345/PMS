@@ -1,12 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="5; url=/student/student_login/" />
-</head>
-<body>
-You have been successfully logged out.Redirecting to <p><a href="{% url 'student:student_off' %}">Student Login Page</a></p>
+{% extends 'home/base.html' %}
+
+{% block title %}Redirecting...{% endblock %}
+
+{% block actives %} active {%endblock %}
+
+{%block meta %}<meta http-equiv="refresh" content="2; url=/student/student_login/" /> {% endblock %}
+{% block activec %}  {%endblock %}
+{% load bootstrap3 %}
+
+{% block body%}
+
+<div id="backgroundImage">
+
+ You have been successfully logged out.....<br>
+ Redirecting to <a href="{% url 'student:student_off' %}">Student Login Page</a>
+
+</div>
+{%endblock%}
+
+
+
 
 </body>
 </html>

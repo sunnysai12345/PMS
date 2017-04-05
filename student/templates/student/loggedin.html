@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-  <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="5; url=/student/{{username}}" />
-</head>
+{% extends 'home/base.html' %}
+
+{% block title %}Redirecting...{% endblock %}
+
+{% block actives %} active {%endblock %}
+
+{%block meta %}<meta http-equiv="refresh" content="2; url=/student/{{username}}" /> {% endblock %}
+{% block activec %}  {%endblock %}
 {% load bootstrap3 %}
-<body>
-<h2> hi {{ username }} logging in</h2>
-<p>click ti logout</p>
-</body>
-</html>
+
+{% block body%}
+
+<div id="backgroundImage">
+
+<h2> hi {{ username }} logging in...</h2>
+</div>
+{%endblock%}

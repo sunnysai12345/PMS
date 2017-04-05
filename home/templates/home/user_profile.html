@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+    <title>{% block title %}PMS{% endblock %}</title>
+    {% block meta %}
+    {% endblock %}
+
+    <meta name="description" content="A web portal for hiring process">
+    <meta name="author" content="IIT Kharagpur">
+       {% load staticfiles %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Average|Courgette' rel='stylesheet' type='text/css'>
+     <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/sidebar.css' %}">
+
+    <!--Load the path to static files -->
+
+</head>
+<body id="backgroundImage">
+    <div id="wrapper">
+        <div class="overlay"></div>
+        <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!--header -->
+            <div class="navbar-header">
+                <!-- change url here -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                    <span class="icon-bar"> </span>
+                    <span class="icon-bar"> </span>
+                    <span class="icon-bar"> </span>
+                </button>
+            </div>
+            <!-- items -->
+            <div class="collapse navbar-collapse mymenu" id="topNavBar">
+
+                <ul class="nav navbar-nav navbar-right" >
+                         <li class="{% block actives %} {% endblock %}">
+                             <a href="#">
+                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; {% block name %} {%endblock %}
+                             </a>
+                         </li>
+                        <li class="{% block activec %} {% endblock %}">
+                             <a href="{%  url 'student:logout' %} ">
+                                 <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp; Logout
+                             </a>
+                         </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       PMS
+                    </a>
+                </li>
+                <li>
+                    <a href="/student/{{ username }}"><i class="fa fa-fw fa-home"></i> {{ username }}</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-folder"></i> Job Profiles</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-file-o"></i> Offer Letters</a>
+                </li>
+                <li>
+                    <a href="/student/edit_details/"><i class="fa fa-fw fa-cog"></i> Edit Profile</a>
+                </li>
+                <!--li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">Dropdown heading</li>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li-->
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-bank"></i> Change Password</a>
+                </li>
+                <!--li>
+                    <a href="#"><i class="fa fa-fw fa-dropbox"></i> Page 5</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-twitter"></i> Last page</a>
+                </li-->
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+          <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+          </button>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        {%block main_body %} {%endblock%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="{% static 'home/js/sidebar.js' %}"></script>
+</body>
+</html>
