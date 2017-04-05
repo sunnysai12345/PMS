@@ -55,9 +55,7 @@ def studentlogin(request):
                     r = StudentDB.objects.filter(s_username__exact=user)
                     if r.filter(s_password__exact=passw):
                         if r.values()[0]['s_verified']:
-                            print 'came here'
-                            print user
-                            print passw
+
                             request.session['username'] = user
                             request.session.set_expiry(300)
                             #form = EditForm()

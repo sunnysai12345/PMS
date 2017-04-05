@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import Postform
-from .forms import Loginform,EditForm
+from .forms import Loginform,EditForm,JobReqs
 from .models import Register
 from django.contrib.auth.decorators import login_required
 import random
@@ -28,38 +28,34 @@ def post_list(request):
         form=Postform()
     return render(request, 'company/tempform.html', {'form':form},status=status)
 def view_home(request):
-    if request.session.has_key('username'):
-        user = request.session['username']
-        return render(request, 'company/companyform.html', {'username': user})
-    else:
-        if request.method == 'POST':
-            form=Loginform(data=request.POST)
-            print (form.errors)
-            print (form.non_field_errors)
-            if form.is_valid():
-                print("Validation Success")
-                user=request.POST['username']
-                passw=request.POST['password']
-                try:
-                    r=Register.objects.filter(c_name__exact=user)
-                    if r.filter(c_password__exact=passw):
-                        if r.values()[0]['c_verified'] :
-                            form = EditForm()
-                            return render(request,'company/companyform.html',{'form':form})
-                        else:
-                            return render(request,'company/verifymail.html')
+    if request.method == 'POST':
+        form=Loginform(data=request.POST)
+        print (form.errors)
+        print (form.non_field_errors)
+        if form.is_valid():
+            print("Validation Success")
+            user=request.POST['username']
+            passw=request.POST['password']
+            try:
+                r=Register.objects.filter(c_name__exact=user)
+                if r.filter(c_password__exact=passw):
+                    if r.values()[0]['c_verified'] :
+                        form = EditForm()
+                        return render(request,'company/companyform.html',{'form':form})
                     else:
-                        return render(request, 'company/login_failure.html')
-                except:
-                    return render(request,'company/login_failure.html')
-                #instance.save()
-            else:
-                print("Validation Failed")
-                #form = Loginform()
-                return render(request, 'company/login.html')
+                        return render(request,'company/verifymail.html')
+                else:
+                    return render(request, 'company/login_failure.html')
+            except:
+                return render(request,'company/login_failure.html')
+            #instance.save()
         else:
-            form=Loginform()
-            return render(request,'company/login.html',{'form':form})
+            print("Validation Failed")
+            #form = Loginform()
+            return render(request, 'company/login.html')
+    else:
+        form=Loginform()
+        return render(request,'company/login.html',{'form':form})
 @login_required()
 def view_edit(request):
     if request.method == 'POST':
@@ -95,4 +91,6 @@ def verify(request):
             pass
         form = EditForm()
         return render(request, 'company/verificationsuccess.html', {'form': form})
-
+def Jobreqs(request):
+    form = JobReqs()
+    return render(request, 'company/jobreqs.html', {'form': form})

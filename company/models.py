@@ -30,4 +30,20 @@ class Edit_Details(models.Model):
     c_selected_students = models.FileField(upload_to="documents/",blank=True)
     def __str__(self):
         return self.c_name
-
+class Job_desc(models.Model):
+    BRANCH = (
+        ('BTECH', 'bachelors'),
+        ('MTECH', 'masters'),
+        ('PHD', 'philospher'),
+    )
+    COURSE = (
+        ('CS', 'computer_science'),
+        ('ME', 'mechanical'),
+        ('EE', 'electrical'),
+    )
+    c_name = models.ForeignKey(Register, on_delete=models.CASCADE)
+    c_ctc_offered = models.DecimalField(decimal_places=2, max_digits=8, blank=True)
+    c_branch = models.CharField(max_length=10, choices=BRANCH, default='CS')  # search for creating drop down menu
+    c_requirements = models.CharField(max_length=5, choices=COURSE, default='BTECH')  # search for drop down MTech Btech
+    def __str__(self):
+        return self.c_name

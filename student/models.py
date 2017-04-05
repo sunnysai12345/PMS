@@ -34,7 +34,7 @@ class StudentDB(models.Model):
      #   return reverse('student:student',)
 
 class Edit_Details(models.Model):
-    s_perm  = models.ForeignKey(StudentDB, on_delete=models.CASCADE)
+    #s_perm  = models.ForeignKey(StudentDB, on_delete=models.CASCADE)
     s_name = models.CharField(max_length=250, blank=True, null=True)
     emailid = models.EmailField(blank=True)
     def __str__(self):
