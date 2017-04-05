@@ -59,7 +59,7 @@ def studentlogin(request):
                             print user
                             print passw
                             request.session['username'] = user
-                            request.session.set_expiry(10)
+                            request.session.set_expiry(300)
                             #form = EditForm()
                             #return HttpResponseRedirect('/student/edit_details',{"username" : user})
                             return render(request,'student/loggedin.html',{'username':user})
@@ -132,9 +132,10 @@ def loggedin(request, user):
 def profile(request,username):
     if request.session.has_key('username'):
         user=request.session['username']
-        return HttpResponse('<h1>Details for profile '+str(user)+'</h1>')
+        return render(request,'student/student_profile.html',{'username':user})
     else:
-        HttpResponse('Unauthorised Access')
+        return HttpResponse('Unauthorised Access')
+
 def logout(request):
     if request.session.has_key('username'):
         del request.session['username']
