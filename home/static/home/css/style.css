@@ -1,3 +1,8 @@
+#listing{
+background: white;
+color: black;
+
+}
 #backgroundImage{z-index: 1;}
 
 p {
@@ -47,3 +52,4 @@ font: 400 25px/0.5  'Courgette', Helvetica, sans-serif;
 .main{
 
 }
+

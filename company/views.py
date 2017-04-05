@@ -28,34 +28,38 @@ def post_list(request):
         form=Postform()
     return render(request, 'company/tempform.html', {'form':form},status=status)
 def view_home(request):
-    if request.method == 'POST':
-        form=Loginform(data=request.POST)
-        print (form.errors)
-        print (form.non_field_errors)
-        if form.is_valid():
-            print("Validation Success")
-            user=request.POST['username']
-            passw=request.POST['password']
-            try:
-                r=Register.objects.filter(c_name__exact=user)
-                if r.filter(c_password__exact=passw):
-                    if r.values()[0]['c_verified'] :
-                        form = EditForm()
-                        return render(request,'company/companyform.html',{'form':form})
-                    else:
-                        return render(request,'company/verifymail.html')
-                else:
-                    return render(request, 'company/login_failure.html')
-            except:
-                return render(request,'company/login_failure.html')
-            #instance.save()
-        else:
-            print("Validation Failed")
-            #form = Loginform()
-            return render(request, 'company/login.html')
+    if request.session.has_key('username'):
+        user = request.session['username']
+        return render(request, 'company/companyform.html', {'username': user})
     else:
-        form=Loginform()
-        return render(request,'company/login.html',{'form':form})
+        if request.method == 'POST':
+            form=Loginform(data=request.POST)
+            print (form.errors)
+            print (form.non_field_errors)
+            if form.is_valid():
+                print("Validation Success")
+                user=request.POST['username']
+                passw=request.POST['password']
+                try:
+                    r=Register.objects.filter(c_name__exact=user)
+                    if r.filter(c_password__exact=passw):
+                        if r.values()[0]['c_verified'] :
+                            form = EditForm()
+                            return render(request,'company/companyform.html',{'form':form})
+                        else:
+                            return render(request,'company/verifymail.html')
+                    else:
+                        return render(request, 'company/login_failure.html')
+                except:
+                    return render(request,'company/login_failure.html')
+                #instance.save()
+            else:
+                print("Validation Failed")
+                #form = Loginform()
+                return render(request, 'company/login.html')
+        else:
+            form=Loginform()
+            return render(request,'company/login.html',{'form':form})
 @login_required()
 def view_edit(request):
     if request.method == 'POST':

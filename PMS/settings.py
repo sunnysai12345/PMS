@@ -25,7 +25,7 @@ SECRET_KEY = '%k)fknwsl(h7er6nijamwy=!ju(mv-#zil2krl81fr2f5$6v(('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.145.209.236','127.0.0.1']
 
 LOGIN_URL='company/login.html'
 LOGIN_REDIRECT_URL='company/companyform.html'
