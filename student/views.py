@@ -8,6 +8,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import random
 from django.template import loader
+from company.models import Register
 # Create your views here.
 
 #class StudentLogin(generic.TemplateView):
@@ -164,3 +165,5 @@ def logout(request):
     auth.logout(request)
     return render_to_response('student/logout.html')
 '''
+def view_profile(request):
+    r=Register

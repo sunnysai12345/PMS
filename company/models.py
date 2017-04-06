@@ -20,7 +20,7 @@ class Register(models.Model):
         return self.c_name
 
 class Edit_Details(models.Model):
-    c_perm  = models.ForeignKey(Register, on_delete=models.CASCADE)
+    register  = models.ForeignKey(Register, on_delete=models.CASCADE)
     c_name = models.CharField(max_length=20, blank=True, null=True)
     c_email = models.EmailField(blank=True)
     #c_email = models.ForeignKey(Register, on_delete=models.CASCADE)
@@ -41,9 +41,10 @@ class Job_desc(models.Model):
         ('ME', 'mechanical'),
         ('EE', 'electrical'),
     )
-    c_name = models.ForeignKey(Register, on_delete=models.CASCADE)
+    register = models.ForeignKey(Register, on_delete=models.CASCADE,null=True)
+    c_position = models.CharField(max_length=30,blank=True)
     c_ctc_offered = models.DecimalField(decimal_places=2, max_digits=8, blank=True)
     c_branch = models.CharField(max_length=10, choices=BRANCH, default='CS')  # search for creating drop down menu
     c_requirements = models.CharField(max_length=5, choices=COURSE, default='BTECH')  # search for drop down MTech Btech
     def __str__(self):
-        return self.c_name
+        return self.c_position

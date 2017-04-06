@@ -25,4 +25,4 @@ class EditForm(forms.ModelForm):
 class JobReqs(forms.ModelForm):
     class Meta:
         model = Job_desc
-        fields=['c_branch','c_ctc_offered','c_requirements']
+        fields=['c_position','c_ctc_offered','c_branch','c_requirements']

@@ -101,8 +101,28 @@ def verify(request):
         form = EditForm()
         return render(request, 'company/verificationsuccess.html', {'form': form})
 def Jobreqs(request):
-    form = JobReqs()
-    return render(request, 'company/jobreqs.html', {'form': form})
+    if request.session.has_key('username'):
+        if request.method == 'POST':
+            form=JobReqs(request.POST)
+            print (form.errors)
+            print (form.non_field_errors)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                # if instance.c_name!=instance.c_confirm_password:
+                instance.save()
+                #instance.save()
+                form=JobReqs()
+                return render(request,'company/jobreqs.html',{'form':form})
+            else:
+                print("Validation Failed")
+                #form = Loginform()
+                return render(request, 'company/jobreqs.html',{'form':form})
+        else:
+            form = JobReqs()
+            return render(request,'company/jobreqs.html',{'form':form})
+    else:
+        return HttpResponse("Unauthorised Access")
+
 
 def profile(request,username):
     if request.session.has_key('username'):

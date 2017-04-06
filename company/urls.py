@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'edit', views.view_edit, name='home_page'),
     url(r'verify',views.verify,name='verify_page'),
     url(r'users/(?P<username>[A-Za-z_0-9]+)/$', views.profile, name='profile'),
-    url(r'jobspecs',views.Jobreqs,name='job_requirements')
+    url(r'jobreqs',views.Jobreqs,name='job_requirements')
 ]
