@@ -5,6 +5,7 @@ from django import forms
 # Create your models here.
 class Register(models.Model):
     c_name=models.CharField(max_length=20,blank=True,null=True)
+    c_company_name=models.CharField(max_length=20,blank=True,null=True)
     c_details=models.TextField(blank=True)
     c_verified=models.BooleanField(default=False,blank=True)
     c_verification=models.IntegerField(default=0,blank=True)
