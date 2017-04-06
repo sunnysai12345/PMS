@@ -62,7 +62,7 @@ def view_home(request):
         else:
             form=Loginform()
             return render(request,'company/login.html',{'form':form})
-@login_required()
+#@login_required()
 def view_edit(request):
     if request.session.has_key('username'):
         if request.method == 'POST':
