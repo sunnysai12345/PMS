@@ -4,7 +4,7 @@ from django import forms
 
 # Create your models here.
 class Register(models.Model):
-    c_name=models.CharField(max_length=20,blank=True,null=False,unique=True)
+    c_name=models.CharField(max_length=20,blank=True,null=True,unique=True)
     c_company_name=models.CharField(max_length=20,blank=True,null=True)
     c_details=models.TextField(blank=True)
     c_verified=models.BooleanField(default=False,blank=True)
@@ -40,8 +40,8 @@ class Job_desc(models.Model):
         ('EE', 'electrical'),
     )
     register = models.ForeignKey('Register', on_delete=models.CASCADE,null=True)
-    c_position = models.CharField(max_length=30,blank=True)
-    c_ctc_offered = models.DecimalField(decimal_places=2, max_digits=8, blank=True)
+    c_position = models.CharField(max_length=30,blank=True,null=True)
+    c_ctc_offered = models.DecimalField(decimal_places=2, max_digits=8, blank=True,null=True)
     c_branch = models.CharField(max_length=10, choices=BRANCH, default='CS')  # search for creating drop down menu
     c_requirements = models.CharField(max_length=5, choices=COURSE, default='BTECH')  # search for drop down MTech Btech
     def __str__(self):

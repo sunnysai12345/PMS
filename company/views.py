@@ -109,9 +109,9 @@ def Jobreqs(request):
     if request.session.has_key('username'):
         if request.method == 'POST':
             user=request.session["username"]
-            #m=Register.objects.get(c_name=user)
-            #tmp=Job_desc.objects.get(register=m)
-            form=JobReqs(request.POST)
+            m=Register.objects.get(c_name=user)
+            tmp=Job_desc.objects.create(register=m)
+            form=JobReqs(request.POST,instance=tmp)
             print (form.errors)
             print (form.non_field_errors)
             if form.is_valid():
