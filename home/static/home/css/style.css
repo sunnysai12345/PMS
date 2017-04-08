@@ -1,8 +1,4 @@
-#listing{
-background: white;
-color: black;
 
-}
 #backgroundImage{z-index: 1;}
 
 
@@ -52,4 +48,9 @@ font: 400 25px/0.5  'Courgette', Helvetica, sans-serif;
 .para {
   font: 400 45px/0.5  'Courgette', Helvetica, sans-serif;
   color: black;
+}
+
+.listing{
+background: black;
+color: white;
 }

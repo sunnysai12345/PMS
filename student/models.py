@@ -4,6 +4,7 @@ from django.db import models
 #this resolves url
 from django.core.urlresolvers import reverse
 import datetime
+from company.models import Job_desc
 # Create your models here.
 class StudentDB(models.Model):
     BRANCH=(
@@ -37,9 +38,19 @@ class Edit_Details(models.Model):
     #s_perm  = models.ForeignKey(StudentDB, on_delete=models.CASCADE)
     s_name = models.CharField(max_length=250, blank=True, null=True)
     emailid = models.EmailField(blank=True)
+    qualification=models.CharField(max_length=250,blank=True, null=True)
+    resume=models.FileField(upload_to="documents/",blank=True)
     def __str__(self):
         return self.s_name
 
+class Notifications(models.Model):
+    job_id = models.ForeignKey(Job_desc, on_delete=models.CASCADE)
+    n_text=models.CharField(max_length=250)
+    new=models.BooleanField()
+
+class AppliedJob(models.Model):
+    job_id= models.ForeignKey(Job_desc, on_delete=models.CASCADE)
+    applied=models.BooleanField()
 '''
 class Course(models.Model):
     course_name=models.CharField(max_length=100)

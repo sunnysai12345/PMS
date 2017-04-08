@@ -78,7 +78,7 @@ def studentlogin(request):
             form = Loginform()
             return render(request, 'student/student_login.html', {'form': form})
 
-@login_required()
+#@login_required()
 
 def view_edit(request):
     #print request.session['username']
