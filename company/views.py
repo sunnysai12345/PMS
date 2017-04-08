@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect,HttpResponse
 from .forms import Postform
 from .forms import Loginform,EditForm,JobReqs
-from .models import Register
+from .models import Register,Job_desc
 from django.contrib.auth.decorators import login_required
 import random
+import pandas as pd
 # Create your views here.
 def post_list(request):
     status = 200
@@ -45,7 +46,7 @@ def view_home(request):
                     if r.filter(c_password__exact=passw):
                         if r.values()[0]['c_verified'] :
                             request.session['username'] = user
-                            request.session.set_expiry(300)
+                            request.session.set_expiry(3000)
                             #form = EditForm()
                             return render(request,'company/loggedin.html',{'username':user})
                         else:
@@ -66,7 +67,11 @@ def view_home(request):
 def view_edit(request):
     if request.session.has_key('username'):
         if request.method == 'POST':
-            form=EditForm(request.POST,request.FILES)
+            user=request.session["username"]
+            print(user)
+            tmp=Register.objects.get(c_name=user)
+            print(tmp.c_company_name,tmp.c_details)
+            form=EditForm(request.POST,request.FILES,instance=tmp)
             print (form.errors)
             print (form.non_field_errors)
             if form.is_valid():
@@ -103,6 +108,9 @@ def verify(request):
 def Jobreqs(request):
     if request.session.has_key('username'):
         if request.method == 'POST':
+            user=request.session["username"]
+            #m=Register.objects.get(c_name=user)
+            #tmp=Job_desc.objects.get(register=m)
             form=JobReqs(request.POST)
             print (form.errors)
             print (form.non_field_errors)
@@ -110,6 +118,8 @@ def Jobreqs(request):
                 instance = form.save(commit=False)
                 # if instance.c_name!=instance.c_confirm_password:
                 instance.save()
+                #i=Job_desc.objects.filter(c_position=instance.c_position).update(register=tmp.id)
+
                 #instance.save()
                 form=JobReqs()
                 return render(request,'company/jobreqs.html',{'form':form})

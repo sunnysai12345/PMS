@@ -19,8 +19,8 @@ class Loginform(AuthenticationForm):
 
 class EditForm(forms.ModelForm):
     class Meta :
-        model = Edit_Details
-        fields=['c_name','c_email','c_branches_allowed','c_ctc_offered','c_requirements','c_selected_students']
+        model = Register
+        fields=['c_details','c_email','c_ppt']
 
 class JobReqs(forms.ModelForm):
     class Meta:
