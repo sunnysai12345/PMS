@@ -1,4 +1,3 @@
-
 {% extends 'home/recruiter_profile.html' %}
 {% block name %}
 {{username}}
@@ -6,10 +5,38 @@
 
 {%block main_body%}
 
-  <!--h1 class="page-header">Welcome {{username}}!!!</h1-->
-    <!--p class="">Originally authored by <a rel="nofollow" rel="noreferrer"href="http://bootsnipp.com/maridlcrmn">maridlcrmn</a> on Bootsnipp and then converted to Less and customized further by <a rel="nofollow" rel="noreferrer"href="http://twiter.com/j_holtslander">j_holtslander</a> who is building a <a rel="nofollow" rel="noreferrer"href="http://codepen.io/collection/nJGkWV" target="_new">collection</a> of great Bootstrap 3 navbars.</p-->
-    <div id="listing">
-    {{ form }}
+<!--h1 class="page-header">Welcome {{username}}!!!</h1-->
+<!--p class="">Originally authored by <a rel="nofollow" rel="noreferrer"href="http://bootsnipp.com/maridlcrmn">maridlcrmn</a> on Bootsnipp and then converted to Less and customized further by <a rel="nofollow" rel="noreferrer"href="http://twiter.com/j_holtslander">j_holtslander</a> who is building a <a rel="nofollow" rel="noreferrer"href="http://codepen.io/collection/nJGkWV" target="_new">collection</a> of great Bootstrap 3 navbars.</p-->
+<div class="listing">
+    <div class="form-group">
+        <div class="">
+            <span class="text-danger small">
+                {{ form.errors }}
+            </span>
+        </div>
+        <div class="">
+            <div class="lead page-header">
+            Company Name
+        </div>
+
+            <div class="">{{ form.c_company_name }}</div>
+        </div>
+        <div class="">
+            <div class="lead page-header">
+
+            Company Description
+            </div>
+            <div class="">{{ form.c_details }}</div>
+        </div>
+        <div class="">
+            <div class="lead page-header">
+            Contact Details
+            </div>
+            <div class="">{{ form.c_email }}</div>
+            <div class="">{{ form.c_contact }}</div>
+
+        </div>
     </div>
+</div>
 {% endblock %}
 <!--p>Click <a href ="{% url 'student:logout' %}">Here</a> To Logout</p-->
