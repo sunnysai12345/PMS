@@ -33,6 +33,8 @@ class StudentDB(models.Model):
 
     #def get_absolute_url(self):
      #   return reverse('student:student',)
+    def __str__(self):
+        return str(self.s_username)
 
 class Edit_Details(models.Model):
     #s_perm  = models.ForeignKey(StudentDB, on_delete=models.CASCADE)
@@ -44,13 +46,17 @@ class Edit_Details(models.Model):
         return self.s_name
 
 class Notifications(models.Model):
-    job_id = models.ForeignKey(Job_desc, on_delete=models.CASCADE)
-    n_text=models.CharField(max_length=250)
-    new=models.BooleanField()
+    jobid = models.ForeignKey(Job_desc, on_delete=models.CASCADE,null=True)
+    n_text=models.CharField(max_length=250,null=True)
+    old=models.BooleanField(default=True)
+    stdid=models.ForeignKey(StudentDB,null=True)
+    def __str__(self):
+        return str(self.n_text)
 
 class AppliedJob(models.Model):
-    job_id= models.ForeignKey(Job_desc, on_delete=models.CASCADE)
+    jobid= models.ForeignKey(Job_desc, on_delete=models.CASCADE)
     applied=models.BooleanField()
+    got_offer=models.CharField(max_length=250,null=True)
 '''
 class Course(models.Model):
     course_name=models.CharField(max_length=100)

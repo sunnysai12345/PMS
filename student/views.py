@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import StudentDB, Edit_Details
+from .models import StudentDB, Edit_Details,Notifications
 from .forms import Registerform, Loginform, EditForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import random
 from django.template import loader
-from company.models import Register
+from company.models import Register,Job_desc
 # Create your views here.
 
 #class StudentLogin(generic.TemplateView):
@@ -40,9 +40,13 @@ def studentregistration(request):
     #fields = ['s_name', 'dob', 'emailid', 'contactno', 'address', 'profile_pic']
 
 def studentlogin(request):
-    if request.session.has_key('username'):
+    if request.session.has_key('username') and request.session.has_key('type'):
         user=request.session['username']
-        return render(request, 'student/loggedin.html', {'username': user})
+        type=request.session['type']
+        if(type=="student"):
+            return render(request, 'student/loggedin.html', {'username': user})
+        else:
+            return render(request, 'company/loggedin.html', {'username': user})
     else:
         if request.method == 'POST':
             form = Loginform(data=request.POST)
@@ -58,6 +62,7 @@ def studentlogin(request):
                         if r.values()[0]['s_verified']:
 
                             request.session['username'] = user
+                            request.session['type']= "student"
                             request.session.set_expiry(300)
                             #form = EditForm()
                             #return HttpResponseRedirect('/student/edit_details',{"username" : user})
@@ -131,9 +136,29 @@ def loggedin(request, user):
 def profile(request,username):
     if request.session.has_key('username'):
         user=request.session['username']
-        return render(request,'student/student_profile.html',{'username':user})
+        s=StudentDB.objects.get(s_username=user)
+        print(s.s_username)
+        tmpt=Notifications.objects.filter(stdid=s)
+        #form = list(tmp.values())  #show any new added job profile only i.e. if (the job id in tmp is not in notification database) and (if in notification database than boolean field is false),then append it to new list and save job_desc in n_text field of notification and set boolean variable in notification to true
+        c=tmpt.count()
+        ids=[]
+        for i in range(0,c):
+            ids.append(tmpt.values()[i]['id'])
+        print(ids)
+        #ids=list(tmpt.values('jobid_id'))
+        form=Job_desc.objects.exclude(pk__in=ids)
+        #form.extend(tmp)
+        print(form)
+        l=list(form.values())
+        for i in range(len(l)):
+            id=l[i]['id']
+            idd=Job_desc.objects.get(pk=id)
+            f,t = Notifications.objects.get_or_create(stdid=s,jobid=idd)
+            if t:
+                f.save()
+        return render(request,'student/student_profile.html',{'form':form,'username':user})
     else:
-        return HttpResponse('Unauthorised Access')
+        return render(request, 'student/unauthorized.html')
 
 def logout(request):
     if request.session.has_key('username'):
@@ -141,8 +166,33 @@ def logout(request):
         #auth.logout(request)
         return render(request,'student/logout_student.html')
     else:
-        return HttpResponse('Invalid Access')
+        return render(request, 'student/unauthorized.html')
 
+def change_password(request):
+    if request.session.has_key('username'):
+        user=request.session['username']
+        return render(request,'student/change_password.html',{'username':user})
+    else:
+        return render(request, 'student/unauthorized.html')
+
+
+def successfull_change(request):
+    if request.session.has_key('username'):
+        user=request.session['username']
+        tmp=StudentDB.objects.get(s_name=user)
+        try:
+            old=request.POST["piCurrPass"]
+            print(old)
+            print(tmp.s_password)
+            if tmp.s_password==old:
+                tmp.s_password=request.POST["piNewPass"]
+                tmp.s_confirm_password=request.POST["piNewPass"]
+                tmp.save(update_fields=['s_password','s_confirm_password'])
+        except:
+            return render(request, 'student/unauthorized.html')
+        return render(request,'student/loggedin.html',{'username':user})
+    else:
+        return render(request, 'student/unauthorized.html')
 '''
     username= request.POST.get('username','')
     password = request.POST.get('password','')
@@ -165,5 +215,32 @@ def logout(request):
     auth.logout(request)
     return render_to_response('student/logout.html')
 '''
-def view_profile(request):
-    r=Register
+def notify(request,username):
+    if request.session.has_key('username'):
+        user = request.session['username']
+        #m=Register.objects.get(c_name=user)
+        tmp= Job_desc.objects.all()
+        form=list(tmp.values())
+        print(form)
+        return render(request, 'student/student_profile.html', {'form':form,'username':user})
+    else:
+        return render(request, 'student/unauthorized.html')
+
+def listjobs(request):
+    if request.session.has_key('username'):
+        user = request.session['username']
+        #m=Register.objects.get(c_name=user)
+        tmp= Job_desc.objects.all() #need to add check that student is qualified
+        form=list(tmp.values())
+        print(form)
+        return render(request, 'student/list_jobs.html', {'form':form,'username':user})
+    else:
+        return HttpResponse('Unauthorised Access')
+
+def get_offer(request):
+    if request.session.has_key('username'):
+        user = request.session['username']
+        form=1# retrieve offer letters from applied jobs with jobid and attachment download link
+        return render(request, 'student/offer_letter.html', {'form':form,'username':user})
+    else:
+        return render(request, 'student/unauthorized.html')

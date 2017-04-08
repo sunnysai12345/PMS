@@ -1,10 +1,10 @@
-{% extends 'home/user_profile.html' %}
+{% extends 'home/recruiter_profile.html' %}
 {% block name %}
 {{username}}
 {% endblock %}
 
 {%block main_body%}
-<h1 class="lead page-header">New Jobs Posted</h1>
+
 <div class="table-responsive listing">
 <table class="table table-bordered">
     <tr>
@@ -14,8 +14,8 @@
         <th>CTC offered </th>
         <th>Degree Required</th>
         <th>Branch Required</th>
-        <th> Application Link</th>
-
+        <th>Publish Date</th>
+        <th>Expiry Date</th>
     </tr>
     {% for item in form %}
     <tr>
@@ -25,7 +25,8 @@
         <td>{{ item.c_ctc_offered }}</td>
         <td>{{ item.c_requirements }}</td>
         <td>{{ item.c_branch }}</td>
-        <td> <a href="/company/jobs/{{ item.id }}">Apply</a></td>
+        <td>{{ item.date_published }}</td>
+        <td>{{ item.date_expiry }}</td>
     </tr>
     {% endfor %}
 </table>

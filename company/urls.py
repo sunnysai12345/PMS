@@ -6,6 +6,10 @@ urlpatterns = [
     url(r'login', views.view_home, name='login_page'),
     url(r'edit', views.view_edit, name='home_page'),
     url(r'verify',views.verify,name='verify_page'),
-    url(r'users/(?P<username>[A-Za-z_0-9]+)/$', views.profile, name='profile'),
-    url(r'jobreqs',views.Jobreqs,name='job_requirements')
+    url(r'userc/(?P<username>[A-Za-z_0-9]+)/$', views.profile, name='profile'),
+    url(r'jobreqs',views.Jobreqs,name='job_requirements'),
+    url(r'change_password', views.change_password,name='passchg'),
+    url(r'changed', views.successfull_change,name='passchgsucc'),
+    url(r'listjobs',views.listjobs,name='listjobs'),
+    url(r'jobs/(?P<jobid>[0-9]+)/',views.jobdesc,name='jobdesc')
 ]

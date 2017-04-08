@@ -25,4 +25,12 @@ class EditForm(forms.ModelForm):
 class JobReqs(forms.ModelForm):
     class Meta:
         model = Job_desc
-        fields=['c_position','c_ctc_offered','c_branch','c_requirements']
+        widgets = {
+            'date_expiry': forms.TextInput(attrs={'placeholder': 'DD/MM/YYYY'}),
+            'date_published': forms.TextInput(attrs={'placeholder': 'DD/MM/YYYY'}),
+        }
+        fields=['c_position','c_ctc_offered','c_branch','c_requirements','date_published','date_expiry']
+
+class ChangePass(forms.ModelForm):
+    class Meta:
+        fields=['c_oldpassword','c_newpassword','c_confirm_password']

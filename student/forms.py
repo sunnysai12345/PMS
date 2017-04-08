@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import extras
-from .models import StudentDB, Edit_Details
+from .models import StudentDB, Edit_Details,Notifications
 from django.contrib.auth.forms import AuthenticationForm
 class Registerform(forms.ModelForm):
     class Meta:
@@ -27,3 +27,10 @@ class EditForm(forms.ModelForm):
         fields=['s_name','emailid']
     def clean(self):
         pass
+
+'''class NotifyStudent(forms.ModelForm):
+    class Meta:
+        model=Notifications
+        fields=['n_text','new']
+    def clean(self):
+        pass'''

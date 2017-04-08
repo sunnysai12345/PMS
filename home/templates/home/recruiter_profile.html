@@ -37,7 +37,7 @@
 
                 <ul class="nav navbar-nav navbar-right" >
                          <li class="{% block actives %} {% endblock %}">
-                             <a href="#">
+                             <a href="/company/userc/{{ username }}">
                                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; {% block name %} {%endblock %}
                              </a>
                          </li>
@@ -56,12 +56,12 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
             <ul class="nav sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
+                    <a href="/company/userc/{{ username }}">
                        PMS:Recruiter
                     </a>
                 </li>
                 <li>
-                    <a href="/company/users/{{ username }}"><i class="fa fa-fw fa-home"></i> {{ username }}</a>
+                    <a href="/company/userc/{{ username }}"><i class="fa fa-fw fa-home"></i> {{ username }}</a>
                 </li>
                 <li>
                     <a href="/company/edit/"><i class="fa fa-fw fa-folder"></i> Edit Company Info</a>
@@ -72,19 +72,19 @@
                 <li>
                     <a href="#"><i class="fa fa-fw fa-cog"></i> Edit Your Profile</a>
                 </li>
-                <!--li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> Dropdown <span class="caret"></span></a>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> Job Options <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">Dropdown heading</li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
+                    <!--li class="dropdown-header"></li-->
+                    <li><a href="/company/listjobs/">Posted Jobs</a></li>
+                    <!--li><a href="#">Another action</a></li>
                     <li><a href="#">Something else here</a></li>
                     <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
+                    <li><a href="#">One more separated link</a></li-->
                   </ul>
-                </li-->
+                </li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-bank"></i> Change Password</a>
+                    <a href="company/change_password/"><i class="fa fa-fw fa-bank"></i> Change Password</a>
                 </li>
                 <!--li>
                     <a href="#"><i class="fa fa-fw fa-dropbox"></i> Page 5</a>

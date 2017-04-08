@@ -29,9 +29,13 @@ def post_list(request):
         form=Postform()
     return render(request, 'company/tempform.html', {'form':form},status=status)
 def view_home(request):
-    if request.session.has_key('username'):
+    if request.session.has_key('username') and request.session.has_key('type'):
         user = request.session['username']
-        return render(request, 'company/loggedin.html', {'username': user})
+        type = request.session['type']
+        if (type == "student"):
+            return render(request, 'student/loggedin.html', {'username': user})
+        else:
+            return render(request, 'company/loggedin.html', {'username': user})
     else:
         if request.method == 'POST':
             form=Loginform(data=request.POST)
@@ -46,6 +50,7 @@ def view_home(request):
                     if r.filter(c_password__exact=passw):
                         if r.values()[0]['c_verified'] :
                             request.session['username'] = user
+                            request.session['type'] = "company"
                             request.session.set_expiry(3000)
                             #form = EditForm()
                             return render(request,'company/loggedin.html',{'username':user})
@@ -142,3 +147,43 @@ def profile(request,username):
         return render(request,'company/company_profile.html',{'username':user,'form': form})
     else:
         return HttpResponse('Unauthorised Access')
+
+def change_password(request):
+    if request.session.has_key('username'):
+        user=request.session['username']
+        return render(request,'company/change_password.html',{'username':user})
+    else:
+        return HttpResponse('Unauthorised Access')
+
+def successfull_change(request):
+    if request.session.has_key('username'):
+        user=request.session['username']
+        tmp=Register.objects.get(c_name=user)
+        try:
+            old=request.POST["piCurrPass"]
+            print(old)
+            print(tmp.c_password)
+            if tmp.c_password==old:
+                tmp.c_password=request.POST["piNewPass"]
+                tmp.c_confirm_password=request.POST["piNewPass"]
+                tmp.save(update_fields=['c_password','c_confirm_password'])
+        except:
+            return HttpResponse('Unauthorised FUCKING Access')
+        return render(request,'company/loggedin.html',{'username':user})
+    else:
+        return HttpResponse('Unauthorised Access')
+def listjobs(request):
+    if request.session.has_key('username'):
+        user = request.session['username']
+        m=Register.objects.get(c_name=user)
+        tmp= Job_desc.objects.filter(register=m)
+        form=list(tmp.values())
+        print(form)
+        return render(request, 'company/list_jobs.html', {'form':form,'username':user})
+    else:
+        return HttpResponse('Unauthorised Access')
+
+def jobdesc(request,jobid):
+    #retrieve job description from database having id job id and give option to apply
+    form=1#retrieved row
+    return render(request, 'company/list_jobs.html', {'form':form,'jobid':jobid})

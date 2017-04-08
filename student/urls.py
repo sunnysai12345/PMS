@@ -17,8 +17,11 @@ urlpatterns = [
     url(r'^home/',views.studentlogin, name='student'),
     url(r'^$', views.studentlogin, name='student'),
  #register new student
-    url(r'register/$', views.studentregistration, name='student_register')
-
+    url(r'register/$', views.studentregistration, name='student_register'),
+    url(r'listjobs/',views.listjobs,name='list_jobs'),
+    url(r'changed/', views.successfull_change,name='passchgsucc'),
+    url(r'change_password/', views.change_password, name='passchg'),
+    url(r'offer_letter/', views.get_offer, name='offer')
 ]
 
 if settings.DEBUG:
