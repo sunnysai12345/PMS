@@ -14,7 +14,8 @@
         <th>CTC offered </th>
         <th>Degree Required</th>
         <th>Branch Required</th>
-        <th> Application Link</th>
+        <th>Application Link</th>
+
     </tr>
     {% for item in form %}
     <tr>
@@ -22,7 +23,7 @@
         <td>{{ item.c_position }}</td>
         <td>{{ item.register_id }}</td>
         <td>{{ item.c_ctc_offered }}</td>
-        <td>{{ item.c_requirements }}</td>
+        <td>{{ item.c_course }}</td>
         <td>{{ item.c_branch }}</td>
         <td> <a href="/company/jobs/{{ item.id }}">Apply</a></td>
     </tr>

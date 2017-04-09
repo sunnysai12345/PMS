@@ -1,54 +1,84 @@
-
 {% extends 'home/base.html' %}
 
 {% block title %}Students:Register{% endblock %}
+{% block javascript %}
 
-{% block body%}
-<div id="backgroundImage">
+    <script>
+        function CheckId() {
+            $.get('/student/taken_name/', {username: $('#id_s_username').val()},
+                function (data) {
+                    if (data == "True") {
+                        $('#idval').html("You may use this ID");
+                    } else {
+                        $('#idval').html("Unavailable");
+                    }
+                });
+        }
+        function onChange() {
+            //alert("here");
+            $("#id_s_username").keyup(function () {
+                CheckId()
+            });
+        }
+        $(document).ready(onChange);
+
+    </script>
+
+{% endblock %}
+{% block body %}
+    <div id="backgroundImage">
 
 
-    <div class="container-fluid">
-        <div class="row modal-body">
-            <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h2 class="heading col-sm-offset-2"><strong>New Student Registration</strong></h2>
-                    <br>
-                    <form class="form-horizontal " action="" method="post" enctype="multipart/form-data">
-                        <!--this is for security pupose against click jacking -->
-                        {% csrf_token %}
-                       {% for field in form %}
-        <div class="text-primary container-fluid row" style="vertical-align: middle;">
-            <div class="col-sm-3">
-            <label class="text-primary">{{ field.label }}</label>
-                </div>
-            <div class="col-sm-3">
-            {{ field }}
-        </div>
-        </div>
-    {% endfor %}
+        <div class="container-fluid">
+            <div class="row modal-body">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h2 class="heading col-sm-offset-2"><strong>New Student Registration</strong></h2>
+                            <br>
 
-                        <div class="form-group">
-                            <div class="col-sm-offset-5 col-sm-10">
-                                <button type="submit" class="btn btn-success">Register</button>
-                            </div>
+                            <form class="form-horizontal " action="" method="post" enctype="multipart/form-data">
+                                <!--this is for security pupose against click jacking -->
+                                {% csrf_token %}
+                                <div class="text-primary container-fluid row" style="vertical-align: middle;">
+                                    <div class="col-sm-3">
+                                    </div>
+                                    <div id="idval" class="col-sm-3 text-danger">
+                                    </div>
+                                </div>
+
+
+                                {% for field in form %}
+                                    <div class="text-primary container-fluid row" style="vertical-align: middle;">
+                                        <div class="col-sm-3">
+                                            <label class="text-primary">{{ field.label }}</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{ field }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-5 col-sm-10">
+                                        <button type="submit" class="btn btn-success">Register</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
-                    </form>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
 
                 </div>
             </div>
-                </div>
-
-            <div class="col-md-6">
 
 
-            </div>
         </div>
-
-
 
     </div>
-
-</div>
 {% endblock %}
 <!--id="{% if field.label == 'S username' %} username{% endif %}"-->

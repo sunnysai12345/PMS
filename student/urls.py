@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'change_password/', views.change_password, name='passchg'),
     url(r'offer_letter/', views.get_offer, name='offer'),
     url(r'success/',views.update_details,name="update"),
+    url(r'taken_name/',views.already_taken,name="taken"),
+    url(r'profile/(?P<username>[A-Za-z_0-9]+)/$', views.view_stud_details, name="stud_details"),
 ]
 
 if settings.DEBUG:

@@ -233,3 +233,14 @@ def view_student_list(request,jobid):
     stdnames=n.list_of_student.split(",")
     form=stdnames
     return render(request, 'company/student_list.html',{'form':form})
+
+def already_taken(request):
+    print ("here");
+    if request.method == "GET":
+        p=request.GET.copy()
+        if 'username' in p:
+            name=p['username']
+            if Register.objects.filter(c_name__iexact=name):
+                return HttpResponse("False")
+            else:
+                return HttpResponse("True")

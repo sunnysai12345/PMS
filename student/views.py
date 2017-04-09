@@ -258,9 +258,29 @@ def update_details(request):
         s=StudentDB.objects.get(s_username=user)
         s_name=request.POST["s_name"]
         emailid=request.POST["emailid"]
-        s.s_username=s_name
+        s.s_name=s_name
         s.emailid=emailid
         s.save()
         return render(request,'student/success.html')
     else:
         return render(request, 'student/unauthorized.html')
+
+def already_taken(request):
+    print ("here");
+    if request.method == "GET":
+        p=request.GET.copy()
+        if 'username' in p:
+            name=p['username']
+            if StudentDB.objects.filter(s_username__iexact=name):
+                return HttpResponse("False")
+            else:
+                return HttpResponse("True")
+
+
+def view_stud_details(request,username):
+    if request.session.has_key('username'):
+        user=request.session['username']
+    else:
+        user='Guest'
+    form=StudentDB.objects.filter(s_username=username).values()
+    return render(request, 'student/stud_view.html', {'form':form,'username':username})

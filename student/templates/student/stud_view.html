@@ -1,0 +1,28 @@
+{% extends 'home/user_profile.html' %}
+{% block name %}
+{{username}}
+{% endblock %}
+
+{%block main_body%}
+
+<div class="listing">
+    {% for item in form %}
+        <div class="lead page-header">Username</div>
+        <div>{{ item.s_username}}</div>
+        <div class="lead page-header">Student Name</div>
+        <div>{{ item.s_name }}</div>
+        <div class="lead page-header">Date Of Birth</div>
+        <div>{{ item.dob }}</div>
+
+        <div class="lead page-header">Email Id</div>
+        <div>{{ item.emailid }}</div>
+        <div class="lead page-header">Branch </div>
+        <div>{{ item.branch }}</div>
+        <div class="lead page-header">Course</div>
+        <div>{{ item.course }}</div>
+        <div class="lead page-header">Contact Number</div>
+        <div>{{ item.contactno }}</div>
+
+            {% endfor %}
+</div>
+{% endblock %}
