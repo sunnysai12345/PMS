@@ -88,6 +88,7 @@ def studentlogin(request):
 def view_edit(request):
     #print request.session['username']
     if request.session.has_key('username'):
+        user = request.session['username']
         if request.method == 'POST':
             form = EditForm(request.POST, request.FILES)
             print (form.errors)
@@ -98,14 +99,14 @@ def view_edit(request):
                 instance.save()
                 # instance.save()
                 #print request.session['username']
-                return render(request, 'student/student_editform.html', {'form': form})
+                return render(request, 'student/student_editform.html', {'form': form,'username': user})
             else:
                 print("Validation Failed")
                 form = EditForm()
                 return render(request, 'student/student_login.html', {'form': form})
         else:
             form = EditForm()
-            return render(request, 'student/student_editform.html', {'form': form})
+            return render(request, 'student/student_editform.html', {'form': form,'username': user})
     else:
         return HttpResponse('Invalid Access')
 
@@ -249,5 +250,17 @@ def get_offer(request):
         user = request.session['username']
         form=1# retrieve offer letters from applied jobs with jobid and attachment download link
         return render(request, 'student/offer_letter.html', {'form':form,'username':user})
+    else:
+        return render(request, 'student/unauthorized.html')
+def update_details(request):
+    if request.session.has_key('username'):
+        user = request.session['username']
+        s=StudentDB.objects.get(s_username=user)
+        s_name=request.POST["s_name"]
+        emailid=request.POST["emailid"]
+        s.s_username=s_name
+        s.emailid=emailid
+        s.save()
+        return render(request,'student/success.html')
     else:
         return render(request, 'student/unauthorized.html')

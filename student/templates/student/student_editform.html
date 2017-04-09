@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hi {{ username }} </title>
-</head>
-{% load bootstrap3 %}
-<body>
+{% extends 'home/user_profile.html' %}
+{% block title %}    Hi {{ username }} {% endblock %}
+{% block name %}
+{{username}}
+{% endblock %}
+
+
+{%block main_body%}
+
+<div style="background: rebeccapurple;">
+    <div class="listing container-fluid">
     <h1>EDIT DETAILS!!!!</h1>
-    <form  method="POST" action="" enctype="multipart/form-data">
+        <div style="color: black;">
+    <form  class="form-horizontal" method="POST" action="/student/success/" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-default">Submit</button>
+        {{ form.as_ul }}
+         <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-10">
+        <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+
+         </div>
 </form>
-<p>click ti logout<a href ="{% url 'student:logout' %}">Here</a></p>
-</body>
-</html>
+</div>
+    </div>
+</div>
+{% endblock %}

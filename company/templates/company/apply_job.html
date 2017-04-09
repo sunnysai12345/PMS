@@ -19,9 +19,9 @@
         <div class="lead page-header">CTC offered </div>
         <div>{{ item.c_ctc_offered }}</div>
         <div class="lead page-header">Degree Required</div>
-        <div>{{ item.c_branch }}</div>
+        <div>{{ item.c_course }}</div>
         <div class="lead page-header">Branch Required</div>
-        <div>{{ item.c_requirements }}</div>
+        <div>{{ item.c_branch }}</div>
         <div>   <form class="form-horizontal " action="/company/applied_msg/{{ item.id }}" method="post" enctype="multipart/form-data">
                         <!--this is for security pupose against click jacking -->
                         {% csrf_token %}

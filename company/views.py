@@ -7,22 +7,34 @@ from django.contrib.auth.decorators import login_required
 import random
 import pandas as pd
 from student.models import Notifications
+from django.core.mail import send_mail
 # Create your views here.
 def post_list(request):
     status = 200
+    print('hello')
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = Postform(request.POST,request.FILES)
+        form = Postform(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
             instance=form.save(commit=False)
-            #if instance.c_name!=instance.c_confirm_password:
+            #print(instance.c_password)
+            #print(instance.c_confirm_password)
             instance.c_verification = random.randint(1,1000)
             instance.save()
+
+            #form=Postform()
+            #return render(request, 'company/tempform.html', {'form': form}, status=status)
             #form.save()
+            '''send_mail(
+                'Verification Mail',
+                'Please verify the mail id by clicking on the below link http:localhost:8000/company/verify/'+str(instance.c_verification),
+                'sunnysai12345@iitkgp.ac.in',
+                ['sunnysai12345@gmail.com'],
+            )'''
             return render(request, 'company/verifymail.html')
         else:
             status = 422
@@ -72,8 +84,8 @@ def view_home(request):
 #@login_required()
 def view_edit(request):
     if request.session.has_key('username'):
+        user = request.session["username"]
         if request.method == 'POST':
-            user=request.session["username"]
             print(user)
             tmp=Register.objects.get(c_name=user)
             print(tmp.c_company_name,tmp.c_details)
@@ -85,14 +97,14 @@ def view_edit(request):
                 # if instance.c_name!=instance.c_confirm_password:
                 instance.save()
                 #instance.save()
-                return render(request,'company/companyform.html',{'form':form})
+                return render(request,'company/companyform.html',{'form':form, 'username':user})
             else:
                 print("Validation Failed")
                 #form = Loginform()
-                return render(request, 'company/companyform.html',{'form':form})
+                return render(request, 'company/companyform.html',{'form':form,'username':user})
         else:
             form = EditForm()
-            return render(request,'company/companyform.html',{'form':form})
+            return render(request,'company/companyform.html',{'form':form,'username':user})
     else:
         return HttpResponse("Unauthorised Access")
 def verify(request):

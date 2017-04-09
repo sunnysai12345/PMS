@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{{ form }}
-</body>
-</html>
+{% extends 'home/recruiter_profile.html' %}
+{%  block title %} Job List Posted{% endblock %}
+{% block name %}
+{{username}}
+{% endblock %}
+
+{%block main_body%}
+
+<div class="table-responsive listing">
+<h1 class="page-header lead">Posted Job List</h1>
+    <table class="table table-bordered">
+    <tr>
+        <th>Students Applied</th>
+    </tr>
+    {% for item in form %}
+    <tr>
+        <td><a href="/student/profile/{{ item }}">{{ item }}</a></td>
+
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

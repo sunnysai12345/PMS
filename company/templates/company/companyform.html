@@ -1,16 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends 'home/recruiter_profile.html' %}
+
+{% block title %}
+    Change Password
+{% endblock %}
+
+{% block name %}
+{{username}}
+{% endblock %}
+
+
 {% load bootstrap3 %}
-<body>
+
+{%block main_body%}
+    <div style="background: rebeccapurple;">
+    <div class="listing container-fluid">
     <h1>EDIT DETAILS!!!!</h1>
-    <form  method="POST" enctype="multipart/form-data">
+        <div style="color: black; vertical-align: middle;">
+            <form  class="form-horizontal" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-default">Submit</button>
+
+            {% for field in form %}
+        <div class="text-primary" style="vertical-align: middle;">
+            <label class="text-primary">{{ field.label }}</label>
+            {{ field }}
+        </div>
+    {% endfor %}
+         <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-10">
+        <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+
+         </div>
 </form>
-</body>
-</html>
+</div>
+    </div>
+</div>
+{% endblock %}

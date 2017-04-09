@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Please check your mail to verify your account</h1>
-</body>
-</html>
+{% extends 'home/base.html' %}
+
+{% block title %}Redirecting...{% endblock %}
+{% block meta %}
+<meta http-equiv="refresh" content="1; url=/student/student_login/" />
+{%endblock %}
+{% block body%}
+
+<div id="backgroundImage">
+
+
+    <div class="container-fluid">
+        <div class="row modal-body">
+            <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="" id="cursive"><strong>Verify through email to complete Registration</strong></h2>
+                    <br>
+                </div>
+            </div>
+            </div>
+
+          </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -6,6 +6,7 @@
 {%block main_body%}
 
 <div class="table-responsive listing">
+<h1 class="page-header lead">List Of Jobs</h1>
 <table class="table table-bordered">
     <tr>
         <th>Job ID</th>
@@ -23,7 +24,7 @@
         <td>{{ item.c_position }}</td>
         <td>{{ item.register_id }}</td>
         <td>{{ item.c_ctc_offered }}</td>
-        <td>{{ item.c_requirements }}</td>
+        <td>{{ item.c_course }}</td>
         <td>{{ item.c_branch }}</td>
         <td> <a href="/company/jobs/{{ item.id }}">Apply</a></td>
     </tr>

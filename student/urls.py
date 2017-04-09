@@ -21,7 +21,8 @@ urlpatterns = [
     url(r'listjobs/',views.listjobs,name='list_jobs'),
     url(r'changed/', views.successfull_change,name='passchgsucc'),
     url(r'change_password/', views.change_password, name='passchg'),
-    url(r'offer_letter/', views.get_offer, name='offer')
+    url(r'offer_letter/', views.get_offer, name='offer'),
+    url(r'success/',views.update_details,name="update"),
 ]
 
 if settings.DEBUG:

@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>JOB DESCRIPTION</title>
-</head>
-<body>
+{% extends 'home/recruiter_profile.html' %}
 
+{% block title %}
+    Add New Job
+{% endblock %}
+
+{% block name %}
+{{username}}
+{% endblock %}
+
+{% block main_body %}
 <form  method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
-</body>
-</html>
+{% endblock %}

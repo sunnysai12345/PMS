@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'student',
     'bootstrap3'
 ]
-
+EMAIL_HOST="iitkgpmail.iitkgp.ac.in"
+EMAIL_PORT=587
+EMAIL_HOST_USER="SUNNYSAI12345@iitkgp.ac.in"
+EMAIL_HOST_PASSWORD="@Krish100"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

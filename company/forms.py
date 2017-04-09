@@ -8,7 +8,7 @@ class Postform(forms.ModelForm):
             'c_password': forms.PasswordInput(),
             'c_confirm_password' : forms.PasswordInput(),
         }
-        fields=['c_name','c_company_name','c_contact','c_details','c_email','c_password']
+        fields=['c_name','c_company_name','c_password','c_contact','c_email','c_details']
 class Loginform(AuthenticationForm):
     username = forms.CharField(label="Username", max_length=30,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))

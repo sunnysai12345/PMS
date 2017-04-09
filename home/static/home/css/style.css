@@ -1,56 +1,63 @@
 
-#backgroundImage{z-index: 1;}
-
+#backgroundImage {
+    z-index: 1;
+}
 
 #cursive {
-  font: 400 45px/0.5  'Courgette', Helvetica, sans-serif;
-  color: red;
+    font: 400 45px/0.5 'Courgette', Helvetica, sans-serif;
+    color: red;
 }
 
 #title:hover {
     color: gray;
 }
 
-.mymenu .heading{
+.mymenu .heading {
 
-font: 400 25px/0.5  'Courgette', Helvetica, sans-serif;
-  color: black;
+    font: 400 25px/0.5 'Courgette', Helvetica, sans-serif;
+    color: black;
 
 }
 
-
 #backgroundImage:before {
-   content: "";
-   position: absolute;
-   z-index: -1;
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   background-image: url('../images/bg.jpg');
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('../images/bg.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
     opacity: 0.3;
-    filter:alpha(opacity=40);
-    height:100%;
-    width:100%;
- }
+    filter: alpha(opacity=40);
+    height: 100%;
+    width: 100%;
+}
 
 .navbar {
-   background-color: transparent;
-   background: transparent;
-   border-color: transparent;
+    background-color: transparent;
+    background: transparent;
+    border-color: transparent;
 }
-.main{
+
+.main {
 
 }
 
 .para {
-  font: 400 45px/0.5  'Courgette', Helvetica, sans-serif;
-  color: black;
+    font: 400 45px/0.5 'Courgette', Helvetica, sans-serif;
+    color: black;
 }
 
-.listing{
-background: rebeccapurple;
-color: white;
+.listing {
+    background: rebeccapurple;
+    color: white;
 }
+
+.listing2 {
+    background: rebeccapurple;
+    color: black;
+}
+
