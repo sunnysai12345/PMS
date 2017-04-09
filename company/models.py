@@ -29,12 +29,12 @@ class Edit_Details(models.Model):
     def __str__(self):
         return str(self.c_name)
 class Job_desc(models.Model):
-    BRANCH = (
+    COURSE = (
         ('BTECH', 'bachelors'),
         ('MTECH', 'masters'),
         ('PHD', 'philospher'),
     )
-    COURSE = (
+    BRANCH = (
         ('CS', 'computer_science'),
         ('ME', 'mechanical'),
         ('EE', 'electrical'),
@@ -47,6 +47,6 @@ class Job_desc(models.Model):
     date_expiry=models.DateField(null=True)
     c_ctc_offered = models.DecimalField(decimal_places=2, max_digits=8, blank=True,null=True)
     c_branch = models.CharField(max_length=10, choices=BRANCH, default='CS')  # search for creating drop down menu
-    c_requirements = models.CharField(max_length=5, choices=COURSE, default='BTECH')  # search for drop down MTech Btech
+    c_course = models.CharField(max_length=5, choices=COURSE, default='BTECH')  # search for drop down MTech Btech
     def __str__(self):
         return str(self.c_position)

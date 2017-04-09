@@ -7,12 +7,12 @@ import datetime
 from company.models import Job_desc
 # Create your models here.
 class StudentDB(models.Model):
-    BRANCH=(
+    COURSE=(
         ('BTECH','bachelors'),
         ('MTECH','masters'),
         ('PHD','philospher'),
     )
-    COURSE=(
+    BRANCH=(
         ('CS','computer_science'),
         ('ME','mechanical'),
         ('EE','electrical'),

@@ -219,7 +219,10 @@ def notify(request,username):
     if request.session.has_key('username'):
         user = request.session['username']
         #m=Register.objects.get(c_name=user)
-        tmp= Job_desc.objects.all()
+        sbranch = StudentDB.objects.get(s_username=user).branch
+        scourse = StudentDB.objects.get(s_username=user).course
+        tmp = Job_desc.objects.filter(c_branch=sbranch , c_course=scourse)
+        #tmp= Job_desc.objects.all()
         form=list(tmp.values())
         print(form)
         return render(request, 'student/student_profile.html', {'form':form,'username':user})
@@ -230,7 +233,11 @@ def listjobs(request):
     if request.session.has_key('username'):
         user = request.session['username']
         #m=Register.objects.get(c_name=user)
-        tmp= Job_desc.objects.all() #need to add check that student is qualified
+        sbranch=StudentDB.objects.get(s_username=user).branch
+        scourse=StudentDB.objects.get(s_username=user).course
+        print(sbranch)
+        print(scourse)
+        tmp= Job_desc.objects.filter(c_branch=sbranch,c_course=scourse) #need to add check that student is qualified
         form=list(tmp.values())
         print(form)
         return render(request, 'student/list_jobs.html', {'form':form,'username':user})
