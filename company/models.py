@@ -42,6 +42,7 @@ class Job_desc(models.Model):
     register = models.ForeignKey('Register', on_delete=models.CASCADE,null=True)
     c_position = models.CharField(max_length=30,blank=True,null=True)
     list_of_student=models.CharField(max_length=500,blank=True,null=True)
+    c_description=models.CharField(max_length=500,null=True)
     date_published = models.DateField(null=True)
     date_expiry=models.DateField(null=True)
     c_ctc_offered = models.DecimalField(decimal_places=2, max_digits=8, blank=True,null=True)

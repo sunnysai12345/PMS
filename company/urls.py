@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'change_password', views.change_password,name='passchg'),
     url(r'changed', views.successfull_change,name='passchgsucc'),
     url(r'listjobs',views.listjobs,name='listjobs'),
-    url(r'jobs/(?P<jobid>[0-9]+)/',views.jobdesc,name='jobdesc')
+    url(r'jobs/(?P<jobid>[0-9]+)/',views.jobdesc,name='jobdesc'),
+    url(r'applied_msg/', views.jobapplied, name='jobapplied'),
+    url(r'student_list/(?P<jobid>[0-9]+)/', views.view_student_list, name='studlist'),
 ]

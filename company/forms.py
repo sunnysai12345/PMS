@@ -29,7 +29,7 @@ class JobReqs(forms.ModelForm):
             'date_expiry': forms.TextInput(attrs={'placeholder': 'DD/MM/YYYY'}),
             'date_published': forms.TextInput(attrs={'placeholder': 'DD/MM/YYYY'}),
         }
-        fields=['c_position','c_ctc_offered','c_branch','c_requirements','date_published','date_expiry']
+        fields=['c_position','c_description','c_ctc_offered','c_branch','c_requirements','date_published','date_expiry']
 
 class ChangePass(forms.ModelForm):
     class Meta:

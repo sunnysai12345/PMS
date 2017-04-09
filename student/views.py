@@ -143,7 +143,7 @@ def profile(request,username):
         c=tmpt.count()
         ids=[]
         for i in range(0,c):
-            ids.append(tmpt.values()[i]['id'])
+            ids.append(tmpt.values()[i]['jobid_id'])
         print(ids)
         #ids=list(tmpt.values('jobid_id'))
         form=Job_desc.objects.exclude(pk__in=ids)
@@ -153,7 +153,7 @@ def profile(request,username):
         for i in range(len(l)):
             id=l[i]['id']
             idd=Job_desc.objects.get(pk=id)
-            f,t = Notifications.objects.get_or_create(stdid=s,jobid=idd)
+            f,t = Notifications.objects.get_or_create(stdid=s,jobid=idd,n_text=str(user))
             if t:
                 f.save()
         return render(request,'student/student_profile.html',{'form':form,'username':user})

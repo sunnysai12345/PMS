@@ -16,6 +16,7 @@
         <th>Branch Required</th>
         <th>Publish Date</th>
         <th>Expiry Date</th>
+        <th>Students Applied</th>
     </tr>
     {% for item in form %}
     <tr>
@@ -27,6 +28,8 @@
         <td>{{ item.c_branch }}</td>
         <td>{{ item.date_published }}</td>
         <td>{{ item.date_expiry }}</td>
+        <td><a href="/company/student_list/{{ item.id }}">View</a></td>
+
     </tr>
     {% endfor %}
 </table>

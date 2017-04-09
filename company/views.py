@@ -6,6 +6,7 @@ from .models import Register,Job_desc
 from django.contrib.auth.decorators import login_required
 import random
 import pandas as pd
+from student.models import Notifications
 # Create your views here.
 def post_list(request):
     status = 200
@@ -39,8 +40,8 @@ def view_home(request):
     else:
         if request.method == 'POST':
             form=Loginform(data=request.POST)
-            print (form.errors)
-            print (form.non_field_errors)
+            #print (form.errors)
+            #print (form.non_field_errors)
             if form.is_valid():
                 print("Validation Success")
                 user=request.POST['username']
@@ -185,5 +186,38 @@ def listjobs(request):
 
 def jobdesc(request,jobid):
     #retrieve job description from database having id job id and give option to apply
-    form=1#retrieved row
-    return render(request, 'company/list_jobs.html', {'form':form,'jobid':jobid})
+    disable=""
+    if request.session.has_key('username'):
+        user = request.session['username']
+        request.session['jobid'] = jobid
+    else:
+        user="Guest"
+        disable="disabled"
+
+    tmp=Job_desc.objects.filter(pk=jobid)
+    t=Job_desc.objects.get(pk=jobid)
+    form=list(tmp.values())#retrieved row
+    name = Register.objects.get(pk=t.register_id).c_name
+    return render(request, 'company/apply_job.html', {'form':form,'company':name,'jobid':jobid,'username':user,'disabled':disable})
+
+def jobapplied(request):
+    #store student Id to applied, display a student profile page
+    if request.session.has_key('jobid') and request.session.has_key('username'):
+        jobid=request.session['jobid']
+        user=request.session['username']
+    else:
+        jobid=1
+        user="Guest"
+    j=Job_desc.objects.get(pk=jobid)
+    if user in j.list_of_student.split(","):
+        return HttpResponse("Already applied... why are you fucking not serious..you asshole")
+    else:
+        j.list_of_student=j.list_of_student+","+user
+        j.save()
+        return render(request, 'student/applied_msg.html')
+
+def view_student_list(request,jobid):
+    n=Job_desc.objects.get(pk=jobid)
+    stdnames=n.list_of_student.split(",")
+    form=stdnames
+    return render(request, 'company/student_list.html',{'form':form})

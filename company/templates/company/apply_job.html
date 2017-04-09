@@ -1,0 +1,37 @@
+{% extends 'home/user_profile.html' %}
+{% block name %}
+{{username}}
+{% endblock %}
+
+{%block main_body%}
+
+<div class="listing">
+    {% for item in form %}
+        <div class="lead page-header">Job ID</div>
+        <div>{{ item.id}}</div>
+        <div class="lead page-header">Company Name</div>
+        <div>{{ company }}</div>
+        <div class="lead page-header">Job Position</div>
+        <div>{{ item.c_position }}</div>
+
+        <div class="lead page-header">Job Description</div>
+        <div>{{ item.c_description }}</div>
+        <div class="lead page-header">CTC offered </div>
+        <div>{{ item.c_ctc_offered }}</div>
+        <div class="lead page-header">Degree Required</div>
+        <div>{{ item.c_branch }}</div>
+        <div class="lead page-header">Branch Required</div>
+        <div>{{ item.c_requirements }}</div>
+        <div>   <form class="form-horizontal " action="/company/applied_msg/{{ item.id }}" method="post" enctype="multipart/form-data">
+                        <!--this is for security pupose against click jacking -->
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-10">
+                                <button type="submit" class="btn btn-success" {{disabled}}>Apply</button>
+                            </div>
+                        </div>
+                    </form>
+        </div>
+            {% endfor %}
+</div>
+{% endblock %}
