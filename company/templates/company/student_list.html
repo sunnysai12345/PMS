@@ -10,11 +10,20 @@
     <table class="table table-bordered">
     <tr>
         <th>Students Applied</th>
+        <th>Give Offer</th>
     </tr>
     {% for item in form %}
     <tr>
         <td><a href="/student/profile/{{ item }}">{{ item }}</a></td>
+        <td>
+         <form class="form-horizontal " action="/company/offered/{{ item }}/" method="get" enctype="multipart/form-data">
+                        <!--this is for security pupose against click jacking -->
 
+                            <div class="">
+                                <button type="submit" class="btn btn-success">Selected</button>
+                        </div>
+                    </form>
+        </td>
     </tr>
     {% endfor %}
 </table>

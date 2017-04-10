@@ -5,8 +5,7 @@ from .forms import Loginform,EditForm,JobReqs
 from .models import Register,Job_desc
 from django.contrib.auth.decorators import login_required
 import random
-import pandas as pd
-from student.models import Notifications
+from student.models import Notifications,AppliedJob,StudentDB
 from django.core.mail import send_mail
 # Create your views here.
 def post_list(request):
@@ -224,7 +223,14 @@ def jobapplied(request):
     if user in j.list_of_student.split(","):
         return HttpResponse("Already applied... why are you fucking not serious..you asshole")
     else:
-        j.list_of_student=j.list_of_student+","+user
+        s=StudentDB.objects.get(s_username=user)
+        a=AppliedJob(stdid=s,jobid=j)
+        a.applied=True
+        a.save()
+        if(len(j.list_of_student)==0):
+            j.list_of_student=user
+        else:
+            j.list_of_student=j.list_of_student+","+user
         j.save()
         return render(request, 'student/applied_msg.html')
 
@@ -232,6 +238,7 @@ def view_student_list(request,jobid):
     n=Job_desc.objects.get(pk=jobid)
     stdnames=n.list_of_student.split(",")
     form=stdnames
+    request.session['offerid']=jobid
     return render(request, 'company/student_list.html',{'form':form})
 
 def already_taken(request):
@@ -244,3 +251,15 @@ def already_taken(request):
                 return HttpResponse("False")
             else:
                 return HttpResponse("True")
+
+def offered(request,userid):
+    if request.session.has_key('offerid'):
+        jobid=request.session['offerid']
+        sid=StudentDB.objects.get(s_username=userid)
+        j=Job_desc.objects.get(pk=jobid)
+        a=AppliedJob.objects.get(stdid=sid,jobid=j)
+        a.got_offer="Yes"
+        a.save()
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)

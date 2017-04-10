@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'applied_msg/', views.jobapplied, name='jobapplied'),
     url(r'student_list/(?P<jobid>[0-9]+)/', views.view_student_list, name='studlist'),
     url(r'taken_name/', views.already_taken, name="takenc"),
+    url(r'offered/(?P<userid>[A-Za-z_0-9]+)/$', views.offered, name="takenc"),
+
 ]

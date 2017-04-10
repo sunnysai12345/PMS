@@ -1,11 +1,17 @@
 from __future__ import unicode_literals
-
+import os
 from django.db import models
 #this resolves url
 from django.core.urlresolvers import reverse
 import datetime
 from company.models import Job_desc
 # Create your models here.
+
+def content_file_name(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (instance.s_username, ext)
+    return os.path.join('documents/', filename)
+
 class StudentDB(models.Model):
     COURSE=(
         ('BTECH','bachelors'),
@@ -28,13 +34,15 @@ class StudentDB(models.Model):
     s_verified = models.BooleanField(default=False, blank=True)
     s_verification = models.IntegerField(default=0, blank=True)
     contactno = models.CharField (max_length=20,blank=True)
-    #address = models.CharField (max_length=500)
-    #profile_pic = models.FileField();
+    resume = models.FileField(upload_to=content_file_name, blank=True)
+    #address = models.CharField (max_length=500)    #profile_pic = models.FileField();
 
     #def get_absolute_url(self):
-     #   return reverse('student:student',)
+     #   return reverse('student:student'
+
     def __str__(self):
         return str(self.s_username)
+
 
 class Edit_Details(models.Model):
     #s_perm  = models.ForeignKey(StudentDB, on_delete=models.CASCADE)
@@ -42,6 +50,9 @@ class Edit_Details(models.Model):
     emailid = models.EmailField(blank=True)
     qualification=models.CharField(max_length=250,blank=True, null=True)
     resume=models.FileField(upload_to="documents/",blank=True)
+
+
+
     def __str__(self):
         return self.s_name
 
@@ -54,9 +65,12 @@ class Notifications(models.Model):
         return str(self.n_text)
 
 class AppliedJob(models.Model):
-    jobid= models.ForeignKey(Job_desc, on_delete=models.CASCADE)
-    applied=models.BooleanField()
-    got_offer=models.CharField(max_length=250,null=True)
+    jobid= models.ForeignKey(Job_desc, on_delete=models.CASCADE,null=True)
+    stdid=models.ForeignKey(StudentDB,on_delete=models.CASCADE,null=True)
+    applied=models.BooleanField(default=False)
+    got_offer=models.CharField(max_length=250,default="No")
+    def __str__(self):
+        return str(self.got_offer)
 '''
 class Course(models.Model):
     course_name=models.CharField(max_length=100)

@@ -23,8 +23,8 @@ class Loginform(AuthenticationForm):
 
 class EditForm(forms.ModelForm):
     class Meta :
-        model = Edit_Details
-        fields=['s_name','emailid']
+        model = StudentDB
+        fields=['s_name','emailid','resume']
     def clean(self):
         pass
 

@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'home/user_profile.html' %}
+{% block name %}
+{{username}}
+{% endblock %}
 
-</body>
-</html>
+{%block main_body%}
+
+<div class="table-responsive listing">
+<h1 class="page-header lead">List Of Applied Jobs</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>Username</th>
+        <th>Job ID</th>
+        <th>Got Offer</th>
+
+    </tr>
+    {% for item in form %}
+    <tr>
+        <td>{{ username}}</td>
+        <td>{{ item.jobid }}</td>
+        <td>{% if item.got_offer == "No" %}No {% else %} <a href="/student/download/">DOL</a> {% endif %}</td>
+
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

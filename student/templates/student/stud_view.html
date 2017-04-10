@@ -9,6 +9,8 @@
     {% for item in form %}
         <div class="lead page-header">Username</div>
         <div>{{ item.s_username}}</div>
+        <div class="lead page-header">Resume</div>
+        <div><a href="/student/resume/{{ item.s_username }}">Download</a></div>
         <div class="lead page-header">Student Name</div>
         <div>{{ item.s_name }}</div>
         <div class="lead page-header">Date Of Birth</div>

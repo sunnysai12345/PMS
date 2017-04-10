@@ -1,7 +1,10 @@
+import os
+
+from django.core.files import File
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import StudentDB, Edit_Details,Notifications
+from .models import StudentDB, Edit_Details,Notifications, AppliedJob
 from .forms import Registerform, Loginform, EditForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
@@ -248,7 +251,8 @@ def listjobs(request):
 def get_offer(request):
     if request.session.has_key('username'):
         user = request.session['username']
-        form=1# retrieve offer letters from applied jobs with jobid and attachment download link
+        sid=StudentDB.objects.get(s_username=user)
+        form=AppliedJob.objects.filter(stdid= sid)# retrieve offer letters from applied jobs with jobid and attachment download link
         return render(request, 'student/offer_letter.html', {'form':form,'username':user})
     else:
         return render(request, 'student/unauthorized.html')
@@ -256,11 +260,12 @@ def update_details(request):
     if request.session.has_key('username'):
         user = request.session['username']
         s=StudentDB.objects.get(s_username=user)
-        s_name=request.POST["s_name"]
+        '''s_name=request.POST["s_name"]
         emailid=request.POST["emailid"]
         s.s_name=s_name
-        s.emailid=emailid
-        s.save()
+        s.emailid=emailid'''
+        form = EditForm(request.POST, request.FILES, instance=s)
+        form.save()
         return render(request,'student/success.html')
     else:
         return render(request, 'student/unauthorized.html')
@@ -284,3 +289,21 @@ def view_stud_details(request,username):
         user='Guest'
     form=StudentDB.objects.filter(s_username=username).values()
     return render(request, 'student/stud_view.html', {'form':form,'username':username})
+
+def download(request):
+    path_to_file='D:\\Github\\PMS\\media\\documents\\1.txt'
+    f = open(path_to_file, 'rb')
+    print(f.readlines())
+    myfile = File(f)
+    response = HttpResponse(myfile, content_type='application/txt')
+    response['Content-Disposition'] = 'attachment;filename=1.txt'
+    return response
+
+def resumed(request,username):
+    path_to_file='D:\\Github\\PMS\\media\\documents\\'+username+'.pdf'
+    f = open(path_to_file, 'rb')
+    print(f.readlines())
+    myfile = File(f)
+    response = HttpResponse(myfile, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment;filename='+username+'.pdf'
+    return response
